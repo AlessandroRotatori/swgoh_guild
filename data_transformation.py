@@ -9,15 +9,15 @@ import pandas as pd
 import datetime
 
 now = datetime.datetime.now()
-now_date = str(now.year) + str(now.month) + str(now.day)
-for i in range(len(data[0]['roster'])):
-    tmp = pd.DataFrame(data[0]['roster'][i]['roster'])
-    player_name = data[0]['roster'][i]['name']
+for i in range(len(data_new_guild[0]['roster'])):
+    tmp = pd.DataFrame(data_new_guild[0]['roster'][i]['roster'])
+    player_name = data_new_guild[0]['roster'][i]['name']
     tmp['Guild_User'] = str(player_name)
-    tmp['Date'] = str(now_date)
+    tmp['Date'] = now
     if i == 0:
         character_list = pd.DataFrame(tmp)
     else:
-        character_list.append(tmp, ignore_index =True)
+        frames = [character_list, tmp]
+        character_list = pd.concat(frames)
 
-del now, now_date, player_name, url_new, i
+del now, player_name, i, tmp

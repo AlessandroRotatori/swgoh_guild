@@ -6,7 +6,7 @@ Created on Thu Nov  8 13:44:40 2018
 """
 
 import requests
-from json import loads, dumps #, dump
+from json import loads, dumps, dump
 
 class SWGOHhelp():
     def __init__(self, settings):
@@ -54,7 +54,8 @@ class SWGOHhelp():
                                                   'roster':{'defId': True,
                                                             'rarity': True,
                                                             'level': True,
-                                                            'gear': True
+                                                            'gear': True,
+                                                            'gp': True
                          }}}}
         try:
             r = requests.request('POST', data_url, headers=head, data = dumps(payload), timeout = 1000)
@@ -74,13 +75,18 @@ class settings():
         self.client_id = _client_id
         self.client_secret = _client_secret
         
-
-
-allycode = 163532549
 #your username and password here, remaining two (client and client secret) are not used so far so filling anything
 creds = settings('ObiAle','alex87rot','123','abc')
 client = SWGOHhelp(creds)
 
 #player data
-data = client.get_data('guild', allycode)
+#allycode = 163532549
+#data = client.get_data('guild', allycode)
 #print(player)
+
+#new guild
+allycode = 127992866
+data_new_guild = client.get_data('guild', allycode)
+
+with open('litte_group_data.json', 'w') as outfile:
+        dump(data_new_guild, outfile)
